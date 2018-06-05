@@ -1,0 +1,107 @@
+<section class="bg-color home">
+  <div class="wrapper">
+    <div class="small-wrapper">
+      <div class="page-intro">
+        <p>Disclaimer: To better enjoy this service, you should be signed into the <a
+          href="https://devcenter-square-slack.herokuapp.com/">Devcenter Square Slack</a>.</p>
+        <h3>
+          We built a Slackbot that scours job posting in <a href="https://www.devcenter.co/community" target="_blank">our
+          community</a>. This page displays these jobs. To post a gig, send <a
+          href="https://devcenter-square.slack.com/messages/D7DJFK4QN" target="_blank">@gigson</a> a message in Square.
+        </h3>
+      </div>
+
+
+      <div class="rel">
+        <div class="search bg-color" stick>
+          <form>
+            <img src="../../assets/img/gigs-search.svg" class="search_img">
+            <input class="bg-color" type="text" name="" placeholder="Search gigson e.g php, remote" #search>
+          </form>
+          <h5 class="no-match" *ngIf="nothingFound">Sorry, your search does not match any gig we have currently.</h5>
+        </div>
+      </div>
+
+
+      <div class="jobs" *ngIf="showProgrammingGigs.length > 0">
+        <div class="job-category">
+          <h4>Programming Jobs</h4>
+          <h6>Latest post about {{ lastProgrammingGig.date.$date | amTimeAgo }} </h6>
+        </div>
+
+        <div class="jobs-list">
+          <table class="tbl-accordion">
+            <tbody>
+            <tr *ngFor="let gig of showProgrammingGigs; let i = index">
+              <td colspan="12">
+                <div accordion [gig]="gig" [searchKeyword]="searchingKeyword">
+                </div>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="showMoreProgrammingGig">
+              <tr *ngFor="let gig of hideProgrammingGigs">
+                <td colspan="12">
+                  <div accordion [gig]="gig" [searchKeyword]="searchingKeyword">
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+
+            <tr class="job">
+              <td class="new"></td>
+              <td class="job-number"></td>
+              <td class="job-title"><a class="see-more" (click)="toggleProgrammingShowMore()"
+                                       *ngIf="!showMoreProgrammingGig && hideProgrammingGigs.length > 0">See other {{
+                hideProgrammingGigs.length }} {{ counter }}
+                jobs</a></td>
+              <td class="job-company"></td>
+              <td class="job-date"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="jobs" *ngIf="showDesignGigs.length > 0">
+        <div class="job-category">
+          <h4>Design Jobs</h4>
+          <h6>Latest post about {{ lastDesignGig.date.$date | amTimeAgo }} </h6>
+        </div>
+
+        <div class="jobs-list">
+          <table class="tbl-accordion">
+            <tbody>
+            <tr *ngFor="let gig of showDesignGigs; let i = index">
+              <td colspan="12">
+                <div accordion [gig]="gig" [searchKeyword]="searchingKeyword">
+                </div>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="showMoreDesignGig">
+              <tr *ngFor="let gig of hideDesignGigs">
+                <td colspan="12">
+                  <div accordion [gig]="gig" [searchKeyword]="searchingKeyword">
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+
+            <tr class="job">
+              <td class="new"></td>
+              <td class="job-number"></td>
+              <td class="job-title"><a class="see-more" (click)="toggleDesignShowMore()"
+                                       *ngIf="!showMoreDesignGig && hideDesignGigs.length > 0">See other {{
+                hideDesignGigs.length }} {{ counter }}
+                jobs</a></td>
+              <td class="job-company"></td>
+              <td class="job-date"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
